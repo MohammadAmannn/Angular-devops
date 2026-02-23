@@ -1,0 +1,12 @@
+# SSH keys
+*.pem
+
+# Environment / secrets
+.env
+.env.*
+
+# Node
+node_modules/
+
+# Docker
+*.log
