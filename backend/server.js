@@ -5,7 +5,6 @@ const app = express();
 
 /* ✅ CORS CONFIGURATION */
 app.use(cors({
-  origin: "http://localhost:8081",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"]
 }));

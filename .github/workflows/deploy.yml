@@ -21,12 +21,16 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t amankhan007/mean-backend:latest ./backend
+          docker build -t amankhan007/mean-backend:${{ github.sha }} ./backend
+          docker tag amankhan007/mean-backend:${{ github.sha }} amankhan007/mean-backend:latest
+          docker push amankhan007/mean-backend:${{ github.sha }}
           docker push amankhan007/mean-backend:latest
 
       - name: Build and push frontend image
         run: |
-          docker build -t amankhan007/mean-frontend:latest ./frontend
+          docker build -t amankhan007/mean-frontend:${{ github.sha }} ./frontend
+          docker tag amankhan007/mean-frontend:${{ github.sha }} amankhan007/mean-frontend:latest
+          docker push amankhan007/mean-frontend:${{ github.sha }}
           docker push amankhan007/mean-frontend:latest
 
       - name: Deploy to EC2 via SSH
@@ -38,4 +42,4 @@ jobs:
           script: |
             cd ~/mean-app
             docker compose pull
-            docker compose up -d
+            docker compose up -d --remove-orphans
