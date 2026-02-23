@@ -1,3 +1,3 @@
 module.exports = {
-  url: process.env.MONGO_URI
+  url: "mongodb://localhost:27017/dd_db"
 };
