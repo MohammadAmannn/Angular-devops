@@ -1,4 +1,5 @@
 📌 MEAN Stack CRUD Application DevOps Deployment
+
 🚀 Project Overview
 
 This project demonstrates the containerization, orchestration, and cloud deployment of a full-stack MEAN (MongoDB, Express, Angular, Node.js) CRUD application.
@@ -35,6 +36,7 @@ Nginx (Reverse Proxy - Port 80)
         MongoDB
 
  #Technology Stack
+ 
 Layer	Technology
 Frontend	Angular 15 (served via Nginx)
 Backend	Node.js + Express
@@ -111,6 +113,7 @@ Trigger
 Pipeline runs automatically on:
 
 Push to main branch
+
 Pipeline Workflow
 
 Checkout Repository
@@ -153,9 +156,12 @@ Restart Containers
 
 http://<EC2_PUBLIC_IP>
 
-screenshots/ss1.png
-screenshots/ss2.png
-screenshots/ss3.png
-screenshots/ss4.png
-screenshots/ss5.png
-screenshots/ss6.png
+#ScreenShot
+
+![Alt text for the screenshot](screenshot/ss1.png)
+![Alt text for the screenshot](screenshot/ss2.png)
+![Alt text for the screenshot](screenshot/ss3.png)
+![Alt text for the screenshot](screenshot/ss4.png)
+![Alt text for the screenshot](screenshot/ss5.png)
+![Alt text for the screenshot](screenshot/ss6.png)
+
