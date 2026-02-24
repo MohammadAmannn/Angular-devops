@@ -37,15 +37,24 @@ Nginx (Reverse Proxy - Port 80)
 
  #Technology Stack
  
-Layer	Technology
+#Layer	Technology
+
 Frontend	Angular 15 (served via Nginx)
+
 Backend	Node.js + Express
+
 Database	MongoDB
+
 Reverse Proxy	Nginx
+
 Containerization	Docker
+
 Orchestration	Docker Compose
+
 Cloud	AWS EC2 (Ubuntu)
+
 CI/CD	GitHub Actions
+
 Image Registry	Docker Hub     
 
 
