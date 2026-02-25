@@ -1,85 +1,93 @@
 📌 MEAN Stack CRUD Application DevOps Deployment
 
-Project Overview
+🚀 Project Overview
 
-This project demonstrates the containerization and deployment of a full-stack MEAN (MongoDB, Express, Angular, Node.js) application.
+This project demonstrates the containerization, orchestration, and cloud deployment of a full-stack MEAN (MongoDB, Express, Angular, Node.js) CRUD application.
 
-The application provides CRUD operations for managing tutorials, including:
+The application enables complete tutorial management with the following features:
 
-Create tutorial
+Create Tutorial
 
-Retrieve all tutorials
+Retrieve All Tutorials
 
-Retrieve single tutorial
+Retrieve Single Tutorial
 
-Update tutorial
+Update Tutorial
 
-Delete tutorial
+Delete Tutorial
 
-Search tutorials by title
+Search Tutorials by Title
 
-The application is fully containerized and deployed on AWS EC2 with an automated CI/CD pipeline using GitHub Actions.
-
-Architecture Overview
-
-User → Nginx (Reverse Proxy) → Frontend (Angular - Nginx)
-                                   |
-                                   → Backend (Node.js + Express)
-                                          |
-                                          → Mongdb
-                                        
-Components:
-
-Frontend: Angular 15 (served via Nginx)
-
-Backend: Node.js + Express REST API
-
-Database: MongoDB (Docker container)
-
-Reverse Proxy: Nginx (Port 80)
-
-Containerization: Docker
-
-Orchestration: Docker Compose
-
-Cloud Platform: AWS EC2 (Ubuntu)
-
-CI/CD: GitHub Actions
-
-Image Registry: Docker Hub
+The system is fully containerized using Docker and deployed on AWS EC2 with an automated CI/CD pipeline via GitHub Actions.
 
 
-Containerization
-Backend Dockerfile
+# Architecture Overview
 
-Multi-stage build
+User
+  │
+  ▼
+Nginx (Reverse Proxy - Port 80)
+  │
+  ├──► Frontend (Angular - Nginx)
+  │
+  └──► Backend (Node.js + Express API)
+            │
+            ▼
+        MongoDB
 
-Node 18 Alpine for build
+ #Technology Stack
+ 
+#Layer	Technology
 
-Distroless image for runtime
+Frontend	Angular 15 (served via Nginx)
 
-Exposes port 8080
+Backend	Node.js + Express
 
-Frontend Dockerfile
+Database	MongoDB
 
-Angular build using Node
+Reverse Proxy	Nginx
 
-Nginx Alpine as runtime
+Containerization	Docker
 
-SPA routing support using try_files
+Orchestration	Docker Compose
 
-Exposes port 80
+Cloud	AWS EC2 (Ubuntu)
 
-Database Setup
+CI/CD	GitHub Actions
 
-MongoDB is deployed as a Docker container using the official image:
+Image Registry	Docker Hub     
 
-mongo:6
 
-Backend connects using:
+#Containerization
+
+Backend
+
+Multi-stage Docker build
+
+Build Stage: Node 18 Alpine
+
+Runtime Stage: Distroless Image
+
+Exposes Port 8080
 
 mongodb://mongodb:27017/dd_db
-MongoDB data is persisted using Docker volumes.
+
+Uses Docker network alias mongodb
+
+Data persisted using Docker volumes
+
+
+#Frontend
+
+Built using Node (Angular production build)
+
+Runtime served via Nginx Alpine
+
+SPA routing supported using:
+
+try_files $uri $uri/ /index.html;
+
+Exposes Port 80
 
 🔁 Reverse Proxy Configuration
 
@@ -91,58 +99,69 @@ Route /api → Backend container
 
 Expose entire application via Port 80
 
-AWS Deployment
+This enables a single public entry point for the complete application.
+
+☁️ #AWS Deployment
 EC2 Configuration
 
 OS: Ubuntu
 
-Docker installed
+Docker Installed
 
-Docker Compose installed
+Docker Compose Installed
 
-Security group configured:
+Security Group Configuration:
 
 Port 80 (HTTP)
 
 Port 22 (SSH)
 
-Application runs using:
-
-docker compose up -d
-
-CI/CD Pipeline (GitHub Actions)
-
-Workflow Trigger
+🔄 #CI/CD Pipeline – GitHub Actions
+Trigger
 
 Pipeline runs automatically on:
+
 Push to main branch
 
-Pipeline Steps
+Pipeline Workflow
 
-Checkout repository
+Checkout Repository
 
 Login to Docker Hub
 
-Build backend image
+Build Backend Docker Image
 
-Push backend image
+Push Backend Image
 
-Build frontend image
+Build Frontend Docker Image
 
-Push frontend image
+Push Frontend Image
 
 SSH into EC2
 
-Pull latest images
+Pull Latest Images
 
-Restart containers automatically
+Restart Containers Automatically
 
-Code Push → GitHub Actions → Build Images → Push to Docker Hub
-→ SSH into EC2 → Pull Latest Images → Restart Containers
 
-Application Access
+#CI/CD Flow Diagram
 
-Application is accessible via:
+Code Push
+   ↓
+GitHub Actions
+   ↓
+Build Docker Images
+   ↓
+Push to Docker Hub
+   ↓
+SSH into EC2
+   ↓
+Pull Latest Images
+   ↓
+Restart Containers
+
+
+🌐 Application Access
 
 http://<EC2_PUBLIC_IP>
 
@@ -154,3 +173,4 @@ http://<EC2_PUBLIC_IP>
 ![Alt text for the screenshot](screenshot/ss4.png)
 ![Alt text for the screenshot](screenshot/ss5.png)
 ![Alt text for the screenshot](screenshot/ss6.png)
+
