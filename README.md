@@ -1,176 +1,167 @@
-📌 MEAN Stack CRUD Application DevOps Deployment
+# 📌 MEAN Stack CRUD Application - DevOps Deployment
 
-🚀 Project Overview
+## 🚀 Project Overview
+This project demonstrates the containerization, orchestration, and cloud deployment of a full-stack MEAN (MongoDB, Express, Angular, Node.js) CRUD application for tutorial management.
 
-This project demonstrates the containerization, orchestration, and cloud deployment of a full-stack MEAN (MongoDB, Express, Angular, Node.js) CRUD application.
+### 📋 Application Features
+- Create Tutorial
+- Retrieve All Tutorials  
+- Retrieve Single Tutorial
+- Update Tutorial
+- Delete Tutorial
+- Search Tutorials by Title
 
-The application enables complete tutorial management with the following features:
+---
 
-Create Tutorial
-
-Retrieve All Tutorials
-
-Retrieve Single Tutorial
-
-Update Tutorial
-
-Delete Tutorial
-
-Search Tutorials by Title
-
-The system is fully containerized using Docker and deployed on AWS EC2 with an automated CI/CD pipeline via GitHub Actions.
-
-
-# Architecture Overview
+## 🏗️ Architecture Overview
 
 User
-  │
-  ▼
+│
+▼
 Nginx (Reverse Proxy - Port 80)
-  │
-  ├──► Frontend (Angular - Nginx)
-  │
-  └──► Backend (Node.js + Express API)
-            │
-            ▼
-        MongoDB
-
- #Technology Stack
- 
-#Layer	Technology
-
-Frontend	Angular 15 (served via Nginx)
-
-Backend	Node.js + Express
-
-Database	MongoDB
-
-Reverse Proxy	Nginx
-
-Containerization	Docker
-
-Orchestration	Docker Compose
-
-Cloud	AWS EC2 (Ubuntu)
-
-CI/CD	GitHub Actions
-
-Image Registry	Docker Hub     
+│
+├──► Frontend (Angular - Nginx Container)
+│
+└──► Backend (Node.js + Express API Container)
+│
+▼
+MongoDB Container
 
 
-#Containerization
+---
 
-Backend
+## 🛠️ Technology Stack
 
-Multi-stage Docker build
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Angular 15 (served via Nginx) |
+| **Backend** | Node.js + Express |
+| **Database** | MongoDB |
+| **Reverse Proxy** | Nginx |
+| **Containerization** | Docker |
+| **Orchestration** | Docker Compose |
+| **Cloud** | AWS EC2 (Ubuntu) |
+| **CI/CD** | GitHub Actions |
+| **Image Registry** | Docker Hub |
 
-Build Stage: Node 18 Alpine
+---
 
-Runtime Stage: Distroless Image
+## 📦 Containerization Details
 
-Exposes Port 8080
+### Backend Container
+- **Build**: Multi-stage Docker build
+- **Build Stage**: Node 18 Alpine
+- **Runtime**: Distroless Image
+- **Port**: 8080
+- **Database Connection**: `mongodb://mongodb:27017/dd_db`
+- **Network**: Uses Docker network alias `mongodb`
+- **Data Persistence**: Docker volumes
 
-mongodb://mongodb:27017/dd_db
+### Frontend Container
+- **Build**: Node for Angular production build
+- **Runtime**: Nginx Alpine
+- **SPA Support**: `try_files $uri $uri/ /index.html;`
+- **Port**: 80
 
-Uses Docker network alias mongodb
+### Reverse Proxy Configuration (Nginx)
 
-Data persisted using Docker volumes
+/ → Frontend Container
+/api → Backend Container
+Port 80 → Public Entry Point
 
 
-#Frontend
+---
 
-Built using Node (Angular production build)
+## ☁️ AWS Deployment
 
-Runtime served via Nginx Alpine
+### EC2 Configuration
+- **OS**: Ubuntu
+- **Docker**: Installed
+- **Docker Compose**: Installed
 
-SPA routing supported using:
+### Security Group Rules
+| Port | Protocol | Purpose |
+|------|----------|---------|
+| 80 | HTTP | Application Access |
+| 22 | SSH | Secure Shell Access |
 
-try_files $uri $uri/ /index.html;
+---
 
-Exposes Port 80
+## 🔄 CI/CD Pipeline (GitHub Actions)
 
-🔁 Reverse Proxy Configuration
+### Trigger
+- Push to `main` branch
 
-Nginx is configured to:
-
-Route / → Frontend container
-
-Route /api → Backend container
-
-Expose entire application via Port 80
-
-This enables a single public entry point for the complete application.
-
-☁️ #AWS Deployment
-EC2 Configuration
-
-OS: Ubuntu
-
-Docker Installed
-
-Docker Compose Installed
-
-Security Group Configuration:
-
-Port 80 (HTTP)
-
-Port 22 (SSH)
-
-🔄 #CI/CD Pipeline – GitHub Actions
-Trigger
-
-Pipeline runs automatically on:
-
-Push to main branch
-
-Pipeline Workflow
-
+### Pipeline Workflow
+Code Push to Main
+↓
 Checkout Repository
-
+↓
 Login to Docker Hub
-
-Build Backend Docker Image
-
-Push Backend Image
-
-Build Frontend Docker Image
-
-Push Frontend Image
-
-SSH into EC2
-
+↓
+Build Backend Image
+↓
+Push Backend to Docker Hub
+↓
+Build Frontend Image
+↓
+Push Frontend to Docker Hub
+↓
+SSH into EC2 Instance
+↓
 Pull Latest Images
-
-Restart Containers Automatically
-
-
-#CI/CD Flow Diagram
-
-Code Push
-   ↓
-GitHub Actions
-   ↓
-Build Docker Images
-   ↓
-Push to Docker Hub
-   ↓
-SSH into EC2
-   ↓
-Pull Latest Images
-   ↓
+↓
 Restart Containers
 
+text
 
-🌐 Application Access
+---
 
+## 🌐 Application Access
 http://<EC2_PUBLIC_IP>
 
-#ScreenShot
+text
 
-![Alt text for the screenshot](screenshot/ss1.png)
-![Alt text for the screenshot](screenshot/ss2.png)
-![Alt text for the screenshot](screenshot/ss3.png)
-![Alt text for the screenshot](screenshot/ss4.png)
-![Alt text for the screenshot](screenshot/ss5.png)
-![Alt text for the screenshot](screenshot/ss6.png)
+---
 
+## 📸 Screenshots
+
+| Application View | Description |
+|-----------------|-------------|
+| ![SS1](screenshot/ss1.png) 
+| ![SS2](screenshot/ss2.png) 
+| ![SS3](screenshot/ss3.png) 
+| ![SS4](screenshot/ss4.png) 
+| ![SS5](screenshot/ss5.png) 
+| ![SS6](screenshot/ss6.png) 
+
+---
+
+## 🚀 Quick Start
+
+### Local Development
+```bash
+# Clone repository
+git clone <repository-url>
+
+# Start all services
+docker-compose up -d
+
+# Access application
+http://localhost
+Production Deployment
+bash
+# SSH into EC2
+ssh ubuntu@<ec2-ip>
+
+# Pull and run containers
+docker-compose pull
+docker-compose up -d
+
+.
+├── frontend/          # Angular application
+├── backend/           # Node.js/Express API
+├── nginx/             # Nginx configuration
+├── docker-compose.yml # Orchestration
+├── .github/           # CI/CD workflows
+└── screenshot/        # Application screenshots
